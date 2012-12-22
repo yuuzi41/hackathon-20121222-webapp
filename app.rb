@@ -10,6 +10,11 @@ get '/' do
 
 	sqlret = conn.exec('select title,url,count from mark_log order by count desc')
 	@result = sqlret
+
+	if nil != conn
+	conn.close
+	end
+
 	##
 	erb :index
 end
@@ -30,6 +35,10 @@ get '/api/add' do
 		conn.exec("insert into mark_log (title,url,count,create_at,modified_at) values ('#{title}', '#{url}', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)")
 	end
 
+	if nil != conn
+	conn.close
+	end
+
 	"{'status': 'ok'}"
 end
 
@@ -40,6 +49,10 @@ get '/api/cnt' do
 	##
 	url = params['url']
 	sqlret = conn.exec("select count from mark_log where url = '#{url}'")
+
+	if nil != conn
+	conn.close
+	end
 
 	if sqlret.count > 0
 		return "{'count': #{sqlret[0]['count']}}"
@@ -52,5 +65,9 @@ get '/api/__clear' do
 	conn = PGconn.connect('ec2-54-243-248-219.compute-1.amazonaws.com',	5432, '','','d8stnhug3r00sl','sqykholuteropu','Z8pzL6QAtHO4n37cFtKoMZc9CS')
 	conn.exec('drop table if exists mark_log')
 
+	if nil != conn
+	conn.close
+	end
+	
 	"{'status': 'ok'}"
 end
