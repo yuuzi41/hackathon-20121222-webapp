@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>しょうもないWebページランキング</title>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<th>rank</th>
+				<th>title</th>
+				<th>count</th>
+			</tr>
+			<% [array].each_with_index {|entry, i| %>
+			<tr>
+				<td><%= i + 1 %></td>
+				<td><a href="<%= entry['url'] %>"><%= entry['title'] %></a></td>
+				<td><%= entry['count'] %></td>
+			</tr>
+			<% } %>
+		</table>
+	</body>
+</html>
