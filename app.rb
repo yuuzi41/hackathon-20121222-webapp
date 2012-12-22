@@ -55,9 +55,9 @@ get '/api/cnt' do
 	end
 
 	if sqlret.count > 0
-		return "{'count': #{sqlret[0]['count']}}"
+		return "{\"count\": #{sqlret[0]['count']}}"
 	else
-		return "{'count': 0}"
+		return "{\"count\": 0}"
 	end
 end
 
@@ -68,6 +68,6 @@ get '/api/__clear' do
 	if nil != conn
 	conn.close
 	end
-	
-	"{'status': 'ok'}"
+
+	"{\"status': 'ok'}"
 end
