@@ -41,7 +41,11 @@ get '/api/cnt' do
 	url = params['url']
 	sqlret = conn.exec("select count from mark_log where url = '#{url}'")
 
-	"{'count': #{sqlret[0]['count']}}"
+	if sqlret.count > 0
+		return "{'count': #{sqlret[0]['count']}}"
+	else
+		return "{'count': 0}"
+	end
 end
 
 get '/api/__clear' do
